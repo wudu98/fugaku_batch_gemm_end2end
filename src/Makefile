@@ -1,11 +1,11 @@
 CC=fcc
-CCFLAG=-std=gnu++11 -Nclang -Kfast,ocl,openmp -fPIC
+CCFLAG=-std=gnu++11 -Nclang -Kfast,ocl,openmp -fPIC -I/home/ra000012/a04083/gnn/gnn/wudu/LLM_speedup/benchmark/dl4fugaku/build/pytorch/aten/src
 BLAS=-SSL2BLAMP -lm -lfjomp
 
-LIB_BATCHED_BLAS_SO = libsgemm_intercept.so
+LIB_BATCHED_BLAS_SO = libbatch_sgemm_intercept.so
 
 OBJS_SRC =  \
-sgemm_intercept.o \
+BatchLinearAlgebra.o \
 
 OBJS = $(OBJS_SRC)
 
