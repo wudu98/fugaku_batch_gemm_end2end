@@ -42,7 +42,7 @@ extern "C" void sgemm_(char *transa, char *transb, int *m, int *n, int *k,
 namespace {
 	int use_batch() {
 	const int num_threads = omp_get_max_threads();
-	printf("threads : %d\n", omp_get_max_threads);
+	printf("threads : %d\n", num_threads);
 
 	if(num_threads > 1)
 		return 1;
