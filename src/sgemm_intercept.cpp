@@ -40,7 +40,7 @@
 // }
 
 namespace {
-	int use_batch() {
+	extern "C" int use_batch() {
 		const int num_threads = omp_get_max_threads();
 		printf("threads : %d\n", num_threads);
 
