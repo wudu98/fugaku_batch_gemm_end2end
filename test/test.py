@@ -18,7 +18,7 @@ M=(int)(S)
 N=(int)(P * NH * 3 / MP)
 K=(int)(H)
 
-print("Layer1 : M %d, N %d, K %d" % (M, N, K))
+print("Layer1 : batch %d, M %d, N %d, K %d" % (batch, M, N, K))
 Layer1_input  = torch.randn(batch, M, K, dtype=dtype)
 Layer1_wight  = torch.randn(batch, K, N, dtype=dtype)
 Layer1_output = torch.zeros(batch, M, N, dtype=dtype)
@@ -28,7 +28,9 @@ for i in range(loop):
     Layer1_output = torch.bmm(Layer1_input, Layer1_wight)
 end = time.time()
 
-print("Layer1 : %.4f ms" % (1000 * (end - start) / loop))
+latency = 1000 * (end - start) / loop
+flops = 2.0 * M * N * K * loop / latency * 1.e-6
+print("Layer1 : %.4f ms, %.2f" % (latency, flops))
 
 # Layer 2
 batch=(int)(NH / MP)
@@ -36,7 +38,7 @@ M=(int)(S)
 N=(int)(S)
 K=(int)(P)
 
-print("Layer2 : M %d, N %d, K %d" % (M, N, K))
+print("Layer2 : batch %d, M %d, N %d, K %d" % (batch, M, N, K))
 Layer2_input  = torch.randn(batch, M, K, dtype=dtype)
 Layer2_wight  = torch.randn(batch, K, N, dtype=dtype)
 Layer2_output = torch.zeros(batch, M, N, dtype=dtype)
@@ -46,4 +48,6 @@ for i in range(loop):
     Layer2_output = torch.bmm(Layer2_input, Layer2_wight)
 end = time.time()
 
-print("Layer2 : %.4f ms" % (1000 * (end - start) / loop))
+latency = 1000 * (end - start) / loop
+flops = 2.0 * M * N * K * loop / latency * 1.e-6
+print("Layer2 : %.4f ms, %.2f" % (latency, flops))
