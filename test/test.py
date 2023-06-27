@@ -4,7 +4,7 @@ import torch
 print(torch.__version__)
 dtype=torch.float32
 
-loop = 10
+loop = 3
 P  = 128
 H  = 7168
 S  = 2048
@@ -18,7 +18,7 @@ M=(int)(S)
 N=(int)(P * NH * 3 / MP)
 K=(int)(H)
 
-print("Layer1 : batch %d, M %d, N %d, K %d" % (batch, M, N, K))
+print("Layer1 : batch-%d, M-%d, N-%d, K-%d" % (batch, M, N, K))
 Layer1_input  = torch.randn(batch, M, K, dtype=dtype)
 Layer1_wight  = torch.randn(batch, K, N, dtype=dtype)
 Layer1_output = torch.zeros(batch, M, N, dtype=dtype)
@@ -38,7 +38,7 @@ M=(int)(S)
 N=(int)(S)
 K=(int)(P)
 
-print("Layer2 : batch %d, M %d, N %d, K %d" % (batch, M, N, K))
+print("Layer2 : batch-%d, M-%d, N-%d, K-%d" % (batch, M, N, K))
 Layer2_input  = torch.randn(batch, M, K, dtype=dtype)
 Layer2_wight  = torch.randn(batch, K, N, dtype=dtype)
 Layer2_output = torch.zeros(batch, M, N, dtype=dtype)
