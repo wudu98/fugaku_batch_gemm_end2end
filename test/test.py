@@ -28,9 +28,9 @@ for i in range(loop):
     Layer1_output = torch.bmm(Layer1_input, Layer1_wight)
 end = time.time()
 
-latency = 1000 * (end - start) / loop
-flops = 2.0 * M * N * K * loop / latency * 1.e-6
-print("Layer1 : %.4f ms, %.2f" % (latency, flops))
+latency = (end - start) / loop
+flops = 2.0 * batch * M * N * K / latency * 1.e-9
+print("Layer1 : %.4f ms, %.2f" % (latency * 1000, flops))
 
 # Layer 2
 batch=(int)(NH / MP)
@@ -48,6 +48,6 @@ for i in range(loop):
     Layer2_output = torch.bmm(Layer2_input, Layer2_wight)
 end = time.time()
 
-latency = 1000 * (end - start) / loop
-flops = 2.0 * M * N * K * loop / latency * 1.e-6
-print("Layer2 : %.4f ms, %.2f" % (latency, flops))
+latency = (end - start) / loop
+flops = 2.0 * batch * M * N * K / latency * 1.e-9
+print("Layer2 : %.4f ms, %.2f" % (latency * 1000, flops))
