@@ -13,15 +13,15 @@ MB = 1
 MP = 1
 
 # Layer 1
-batch=1
-M=S
+batch=(int)(1)
+M=(int)(S)
 N=(int)(P * NH * 3 / MP)
-K=H
+K=(int)(H)
 
 print("Layer1 : M %d, N %d, K %d" % (M, N, K))
 Layer1_input  = torch.randn(batch, M, K, dtype=dtype)
 Layer1_wight  = torch.randn(batch, K, N, dtype=dtype)
-Layer1_output = torch.zero(batch, M, N, dtype=dtype)
+Layer1_output = torch.zeros(batch, M, N, dtype=dtype)
 
 start = time.time()
 for i in range(loop):
@@ -32,14 +32,14 @@ print("Layer1 : %.4f ms" % (1000 * (end - start) / loop))
 
 # Layer 2
 batch=(int)(NH / MP)
-M=S
-N=S
-K=P
+M=(int)(S)
+N=(int)(S)
+K=(int)(P)
 
 print("Layer2 : M %d, N %d, K %d" % (M, N, K))
 Layer2_input  = torch.randn(batch, M, K, dtype=dtype)
 Layer2_wight  = torch.randn(batch, K, N, dtype=dtype)
-Layer2_output = torch.zero(batch, M, N, dtype=dtype)
+Layer2_output = torch.zeros(batch, M, N, dtype=dtype)
 
 start = time.time()
 for i in range(loop):
