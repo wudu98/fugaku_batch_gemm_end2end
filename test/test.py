@@ -15,7 +15,7 @@ MP = 1
 # Layer 1
 batch=1
 M=S
-N=P * NH * 3 / MP
+N=(int)(P * NH * 3 / MP)
 K=H
 
 print("Layer1 : M %d, N %d, K %d" % (M, N, K))
@@ -31,7 +31,7 @@ end = time.time()
 print("Layer1 : %.4f ms" % (1000 * (end - start) / loop))
 
 # Layer 2
-batch=NH / MP
+batch=(int)(NH / MP)
 M=S
 N=S
 K=P
