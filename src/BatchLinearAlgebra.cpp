@@ -27,11 +27,9 @@
 // 	);
 // }
 
-namespace {
-	extern "C" int use_batch() {
-		const int num_threads = omp_get_max_threads();
-		printf("threads : %d\n", num_threads);
+extern "C" int use_batch() {
+	const int num_threads = omp_get_max_threads();
+	printf("threads : %d\n", num_threads);
 
-		return 0;
-	}
+	return 0;
 }
