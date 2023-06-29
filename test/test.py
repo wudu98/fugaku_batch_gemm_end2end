@@ -9,8 +9,8 @@ P  = 128
 H  = 7168
 S  = 2048
 NH = 56
-MB = 48
-MP = 4
+MB = 1
+MP = 1
 
 # Layer 1
 batch=(int)(MB)
