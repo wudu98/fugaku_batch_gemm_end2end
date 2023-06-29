@@ -9,11 +9,11 @@ P  = 128
 H  = 7168
 S  = 2048
 NH = 56
-MB = 1
+MB = 48
 MP = 1
 
 # Layer 1
-batch=(int)(1)
+batch=(int)(MB)
 M=(int)(S)
 N=(int)(P * NH * 3 / MP)
 K=(int)(H)
@@ -33,7 +33,7 @@ flops = 2.0 * batch * M * N * K / latency * 1.e-9
 print("Layer1 : %.4f ms, %.2f" % (latency * 1000, flops))
 
 # Layer 2
-batch=(int)(NH / MP)
+batch=(int)(MB * NH / MP)
 M=(int)(S)
 N=(int)(S)
 K=(int)(P)
@@ -53,7 +53,7 @@ flops = 2.0 * batch * M * N * K / latency * 1.e-9
 print("Layer2 : %.4f ms, %.2f" % (latency * 1000, flops))
 
 # Layer 3
-batch=(int)(NH / MP)
+batch=(int)(MB * NH / MP)
 M=(int)(S)
 N=(int)(P)
 K=(int)(S)
@@ -73,7 +73,7 @@ flops = 2.0 * batch * M * N * K / latency * 1.e-9
 print("Layer3 : %.4f ms, %.2f" % (latency * 1000, flops))
 
 # Layer 4
-batch=(int)(1)
+batch=(int)(MB)
 M=(int)(S)
 N=(int)(H)
 K=(int)(H / MP)
@@ -93,7 +93,7 @@ flops = 2.0 * batch * M * N * K / latency * 1.e-9
 print("Layer4 : %.4f ms, %.2f" % (latency * 1000, flops))
 
 # Layer 5
-batch=(int)(1)
+batch=(int)(MB)
 M=(int)(S)
 N=(int)(4 * H / MP)
 K=(int)(H)
@@ -113,7 +113,7 @@ flops = 2.0 * batch * M * N * K / latency * 1.e-9
 print("Layer5 : %.4f ms, %.2f" % (latency * 1000, flops))
 
 # Layer 6
-batch=(int)(1)
+batch=(int)(MB)
 M=(int)(S)
 N=(int)(H)
 K=(int)(4 * H / MP)
