@@ -10,7 +10,7 @@ H  = 7168
 S  = 2048
 NH = 56
 MB = 48
-MP = 1
+MP = 4
 
 # Layer 1
 batch=(int)(MB)
