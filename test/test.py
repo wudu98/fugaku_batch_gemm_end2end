@@ -33,6 +33,7 @@ for i in range(loop):
         Layer1_output[j,:,:] = torch.mm(Layer1_input[j,:,:], Layer1_wight[j,:,:])
 end = time.time()
 
+print(torch.equal(Layer1_output_ori, Layer1_output))
 latency = (end - start) / loop
 flops = 2.0 * batch * M * N * K / latency * 1.e-9
 print("Layer1 : %.4f ms, %.2f" % (latency * 1000, flops))
