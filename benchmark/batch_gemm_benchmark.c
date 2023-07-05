@@ -47,7 +47,7 @@ void my_blas_batch_sgemm(const int parallel_mode, const int batch_count, const i
 				}
 			}
 		}
-	}	
+	}
 }
 
 
