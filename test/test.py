@@ -37,7 +37,7 @@ def run_layer(id, batch, M, N, K, repeats):
 
     latency = (end - start) / repeats
     flops = 2.0 * batch * M * N * K / latency * 1.e-9
-    print("Layer1 for torch.mm(): %.4f ms, %.2f" % (latency * 1000, flops))
+    print("Layer%d for torch.mm(): %.4f ms, %.2f" % (id, latency * 1000, flops))
 
     print("error_check_Layer%d:" % (id), torch.equal(Layer_output_bmm, Layer_output_mm))
 
