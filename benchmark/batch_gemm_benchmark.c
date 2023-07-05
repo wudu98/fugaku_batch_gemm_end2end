@@ -34,7 +34,7 @@ void my_blas_batch_sgemm(const int parallel_mode, const int batch_count, const i
 		int ncores = omp_get_num_threads();
 		int nteams = 4;
 		for(int i = 0; i < batch_count; i++){
-			#pragma omp target teams num_teams( nteams ) thread_limit( ncores / nteams )
+			#pragma omp target teams num_teams( nteams ) thread_limit( ncores / nteams ) distribute
 			{
 				int team = omp_get_team_num();
 				printf("Team %d out of %d teams\n", team, nteams);
