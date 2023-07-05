@@ -187,7 +187,7 @@ int main(int argc, char *argv[]){
 	for(int i = 0; i < TB; i++){
 		for(int j = 0; j < batch_size[i]; j++){
 			for(int l = 0; l < c_alloc; l++){
-				error = fabs(cref[batch_head[i]+j][l], c[batch_head[i]+j][l]);
+				error = fabs(cref[batch_head[i]+j][l] - c[batch_head[i]+j][l]);
 				if(error > max_error){
 					max_error = error;
 				}
