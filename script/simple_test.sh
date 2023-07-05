@@ -23,13 +23,13 @@ cd ..
 layout_=1
 transa_=0
 transb_=0
-parallel_mode_=0
 
-echo  "layout_: " $layout_ $transa_ $transb_ $parallel_mode_ 
 TB=1
 B=12
 M=2048
 N=2048
 K=128
 echo -n $TB "," $B "," $M "," $N "," $K ","
-$MPIEXEC ./benchmark/batch_gemm_benchmark $TB $B $M $N $K $layout_ $transa_ $transb_ $parallel_mode_ 
+$MPIEXEC ./benchmark/batch_gemm_benchmark $TB $B $M $N $K $layout_ $transa_ $transb_ 0
+$MPIEXEC ./benchmark/batch_gemm_benchmark $TB $B $M $N $K $layout_ $transa_ $transb_ 1
+$MPIEXEC ./benchmark/batch_gemm_benchmark $TB $B $M $N $K $layout_ $transa_ $transb_ 2
