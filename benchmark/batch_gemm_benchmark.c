@@ -31,10 +31,15 @@ void my_blas_batch_sgemm(const int parallel_mode, const int batch_count, const i
 	}
 	else if (parallel_mode == 2 )
 	{
-		#pragma omp target teams num_teams( 3 ) thread_limit( 12 / 3 ) \
-					parallel for collapse(2)
+		#pragma omp target teams num_teams( 3 ) thread_limit( 12 / 3 )
+		#pragma omp parallel for collapse(2)
 		for(int i = 0; i < batch_count; i++){
 			for(int j = 0; j < batch_size[i]; j++){
+				int team = omp_get_team_num();
+				int nteams = omp_get_num_teams(); 
+				int tid = omp_get_thread_num();
+				int nthreads = omp_get_num_threads();
+				printf( "Team %d out of %d teams\nThread %d of out %d threads in the team.\n", team, nteams, tid, nthreads );
 				cblas_sgemm(layout, transa, transb, m[i], n[i], k[i], alpha[i], a[batch_head[i]+j], lda[i], b[batch_head[i]+j], ldb[i], beta[i], c[batch_head[i]+j], ldc[i]);
 			}
 		}
