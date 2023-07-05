@@ -32,7 +32,7 @@ void my_blas_batch_sgemm(const int parallel_mode, const int batch_count, const i
 	else if (parallel_mode == 2 )
 	{
 		int ncores = omp_get_num_threads();
-		int nteams = 7;
+		int nteams = 6;
 		for(int i = 0; i < batch_count; i++){
 			#pragma omp target teams num_teams( nteams ) distribute
 			{
