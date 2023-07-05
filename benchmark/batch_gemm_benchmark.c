@@ -179,7 +179,23 @@ int main(int argc, char *argv[]){
 	double peak = fp_peak();
 
 	// dry run
+	my_blas_batch_sgemm(0, TB, batch_size, batch_head, layout, transa, transb, m, n, k, alpha, a, lda, b, ldb, beta, cref, ldc);
 	my_blas_batch_sgemm(parallel_mode_, TB, batch_size, batch_head, layout, transa, transb, m, n, k, alpha, a, lda, b, ldb, beta, c, ldc);
+	// check
+	double error, max_error = 0.0;
+
+	for(int i = 0; i < TB; i++){
+		for(int j = 0; j < batch_size[i]; j++){
+			for(int l = 0; l < c_alloc; l++){
+				error = fabs(cref[batch_head[i]+j][l], c[batch_head[i]+j][l]);
+				if(error > max_error){
+					max_error = error;
+				}
+			}
+		}
+	}
+	printf("max_error= %e\n", max_error);
+
 
 	// benchmark
 	double dt[iter];
