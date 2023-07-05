@@ -12,7 +12,7 @@ typedef float typ;
 
 void my_blas_batch_sgemm(const int parallel_mode, const int batch_count, const int *batch_size, const int *batch_head, const CBLAS_LAYOUT layout, const CBLAS_TRANSPOSE transa, const CBLAS_TRANSPOSE transb, const int* m, const int* n, const int* k, const float* alpha, const float ** a, const int* lda, const float ** b, const int* ldb, const float* beta, float ** c, const int* ldc)
 {
-	#pragma omp target teams num_teams( 20 ) thread_limit( 36 / 20 ) \
+	#pragma omp target teams num_teams( 2 ) thread_limit( 48 / 2 ) \
 				parallel for collapse(2)
 	for(int i = 0; i < batch_count; i++){
 		for(int j = 0; j < batch_size[i]; j++){
