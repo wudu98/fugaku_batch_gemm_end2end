@@ -31,9 +31,8 @@ void my_blas_batch_sgemm(const int parallel_mode, const int batch_count, const i
 	}
 	else if (parallel_mode == 2 )
 	{
-		#pragma omp target teams num_teams( 3 ) thread_limit( 12 / 3 )
-		#pragma omp parallel for collapse(2)
 		for(int i = 0; i < batch_count; i++){
+			#pragma omp target teams num_teams( 3 ) thread_limit( 12 / 3 )
 			for(int j = 0; j < batch_size[i]; j++){
 				int team = omp_get_team_num();
 				int nteams = omp_get_num_teams(); 
