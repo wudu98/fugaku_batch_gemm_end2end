@@ -39,9 +39,9 @@ void my_blas_batch_sgemm(const int parallel_mode, const int batch_count, const i
 				int team = omp_get_team_num();
 				// printf("Team %d out of %d teams\n", team, _num_teams);
 				
-				int batch_seq = (int)ceil(batch_size[i] / nteams);
+				int batch_seq = batch_size[i] / nteams;
 				int iter_begin = team * batch_seq;
-				int iter_end = (batch_size[i] < (team+1) * batch_seq) ? batch_size[i] : (team+1) * batch_seq;
+				int iter_end = team == nteams-1 ? batch_size[i] : (team+1) * batch_seq;
 				for(int j = iter_begin; j < iter_end; j++){
 					cblas_sgemm(layout, transa, transb, m[i], n[i], k[i], alpha[i], a[batch_head[i]+j], lda[i], b[batch_head[i]+j], ldb[i], beta[i], c[batch_head[i]+j], ldc[i]);
 				}
