@@ -39,7 +39,7 @@ void my_blas_batch_sgemm(const int parallel_mode, const int batch_count, const i
 				int nteams = omp_get_num_teams(); 
 				int tid = omp_get_thread_num();
 				int nthreads = omp_get_num_threads();
-				printf( "Team %d out of %d teams\nThread %d of out %d threads in the team.\n", team, nteams, tid, nthreads );
+				printf( "%d\nTeam %d out of %d teams\nThread %d of out %d threads in the team.\n", team*3+tid ,team, nteams, tid, nthreads );
 				cblas_sgemm(layout, transa, transb, m[i], n[i], k[i], alpha[i], a[batch_head[i]+j], lda[i], b[batch_head[i]+j], ldb[i], beta[i], c[batch_head[i]+j], ldc[i]);
 			}
 		}
