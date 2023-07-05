@@ -32,21 +32,16 @@ void my_blas_batch_sgemm(const int parallel_mode, const int batch_count, const i
 	else if (parallel_mode == 2 )
 	{
 		int ncores = omp_get_num_threads();
-		int nteams = 2;
+		int nteams = 4;
 		for(int i = 0; i < batch_count; i++){
 			#pragma omp target teams num_teams( nteams ) thread_limit( ncores / nteams )
 			{
 				int team = omp_get_team_num();
-				int iter_begin, iter_end;
 				printf("Team %d out of %d teams\n", team, nteams);
-				if (team == 0){
-					iter_begin = 0;
-					iter_end = batch_size[i] / 2;
-				}
-				else if (team == 1){
-					iter_begin = batch_size[i] / 2;
-					iter_end = batch_size[i];
-				}
+				
+				int batch_seq = batch_size[i] / nteams;
+				int iter_begin = team * batch_seq;
+				int iter_end = min(batch_size[i], (team+1) * batch_seq);
 				for(int j = iter_begin; j < iter_end; j++){
 					cblas_sgemm(layout, transa, transb, m[i], n[i], k[i], alpha[i], a[batch_head[i]+j], lda[i], b[batch_head[i]+j], ldb[i], beta[i], c[batch_head[i]+j], ldc[i]);
 				}
